@@ -330,25 +330,6 @@
       overflow-x: auto;
     }
 
-    .timer-bar {
-      background: var(--card-alt);
-      border: 1px solid var(--amber);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 8px;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-    .time-val {
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: var(--amber);
-    }
     .quiz-q {
       background: var(--card-alt);
       border: 1px solid var(--border);
@@ -379,6 +360,45 @@
       font-size: 0.88rem;
     }
     .option-lbl:hover { border-color: var(--cyan); }
+    
+    .check-ans-btn {
+      background: var(--cyan);
+      color: #000;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .q-feedback {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border-left: 3px solid var(--cyan);
+      font-size: 0.88rem;
+    }
+
+    .start-screen {
+      text-align: center;
+      padding: 30px 10px;
+    }
+    .btn-start {
+      background: var(--emerald);
+      color: #000;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+    #quiz-body { display: none; }
+
     .btn-submit {
       background: var(--emerald);
       color: #000;
@@ -400,6 +420,21 @@
       margin-top: 18px;
       text-align: center;
     }
+    .admin-banner {
+      display: none;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid var(--rose);
+      color: #fca5a5;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .admin-highlight {
+      border: 2px dashed var(--amber) !important;
+      background: rgba(245, 158, 11, 0.08) !important;
+    }
     mjx-container {
       overflow-x: auto;
       overflow-y: hidden;
@@ -412,12 +447,12 @@
   <header>
     <span class="badge">SSS 2 • First Term • Week 5</span>
     <h1>Newton's Laws of Motion, Momentum & Impulse</h1>
-    <p class="subtitle">Interactive Physics Lesson, Worked Derivations, Practice Drills & Timed CBT</p>
+    <p class="subtitle">Interactive Physics Lesson, Worked Derivations, Practice Drills & CBT Practice</p>
   </header>
 
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="openTab('part1')">Part 1: Concepts & Examples</button>
-    <button class="tab-btn" onclick="openTab('part2')">Part 2: Practice & Timed Quiz</button>
+    <button class="tab-btn" onclick="openTab('part2')">Part 2: Practice & Quiz Mode</button>
   </div>
 
   <!-- ======================== PART 1: CONCEPTS ======================== -->
@@ -438,7 +473,6 @@
 
       <div class="diagram-box">
         <svg viewBox="0 0 420 150">
-          <!-- Floor -->
           <line x1="20" y1="105" x2="400" y2="105" stroke="#94a3b8" stroke-width="2.5"/>
           <line x1="50" y1="105" x2="35" y2="120" stroke="#475569" stroke-width="1.5"/>
           <line x1="110" y1="105" x2="95" y2="120" stroke="#475569" stroke-width="1.5"/>
@@ -446,22 +480,17 @@
           <line x1="230" y1="105" x2="215" y2="120" stroke="#475569" stroke-width="1.5"/>
           <line x1="290" y1="105" x2="275" y2="120" stroke="#475569" stroke-width="1.5"/>
           <line x1="350" y1="105" x2="335" y2="120" stroke="#475569" stroke-width="1.5"/>
-          <!-- Block -->
           <rect x="150" y="50" width="110" height="55" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="5"/>
           <text x="205" y="82" fill="#f8fafc" font-size="13" text-anchor="middle" font-weight="bold">Block (m)</text>
-          <!-- Normal Reaction R -->
           <line x1="205" y1="50" x2="205" y2="14" stroke="#10b981" stroke-width="2.5"/>
           <polygon points="200,18 205,8 210,18" fill="#10b981"/>
           <text x="215" y="22" fill="#10b981" font-size="11" font-weight="bold">R (Reaction)</text>
-          <!-- Weight W -->
           <line x1="205" y1="105" x2="205" y2="140" stroke="#ef4444" stroke-width="2.5"/>
           <polygon points="200,136 205,146 210,136" fill="#ef4444"/>
           <text x="215" y="142" fill="#ef4444" font-size="11" font-weight="bold">W = mg</text>
-          <!-- Applied Pull P -->
           <line x1="260" y1="77" x2="355" y2="77" stroke="#38bdf8" stroke-width="2.5"/>
           <polygon points="352,72 364,77 352,82" fill="#38bdf8"/>
           <text x="310" y="67" fill="#38bdf8" font-size="11" font-weight="bold">Applied Pull (P)</text>
-          <!-- Friction F -->
           <line x1="150" y1="100" x2="65" y2="100" stroke="#f59e0b" stroke-width="2.5"/>
           <polygon points="68,95 56,100 68,105" fill="#f59e0b"/>
           <text x="100" y="90" fill="#f59e0b" font-size="11" font-weight="bold">Friction (F)</text>
@@ -638,26 +667,19 @@
 
       <div class="diagram-box">
         <svg viewBox="0 0 420 190">
-          <!-- Table -->
           <line x1="20" y1="80" x2="310" y2="80" stroke="#94a3b8" stroke-width="3"/>
           <line x1="310" y1="80" x2="310" y2="180" stroke="#94a3b8" stroke-width="3"/>
-          <!-- Pulley -->
           <circle cx="322" cy="68" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
           <line x1="310" y1="80" x2="322" y2="68" stroke="#94a3b8" stroke-width="2"/>
-          <!-- Block X -->
           <rect x="110" y="40" width="75" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="4"/>
           <text x="147" y="64" fill="#f8fafc" font-size="12" text-anchor="middle" font-weight="bold">X (5 kg)</text>
-          <!-- String -->
           <line x1="185" y1="54" x2="322" y2="54" stroke="#f8fafc" stroke-width="1.8"/>
           <line x1="336" y1="68" x2="336" y2="125" stroke="#f8fafc" stroke-width="1.8"/>
-          <!-- Block Y -->
           <rect x="306" y="125" width="60" height="40" fill="#1e293b" stroke="#f59e0b" stroke-width="2" rx="4"/>
           <text x="336" y="149" fill="#f8fafc" font-size="11" text-anchor="middle" font-weight="bold">Y (7.5 kg)</text>
-          <!-- Friction arrow -->
           <line x1="110" y1="74" x2="45" y2="74" stroke="#ef4444" stroke-width="2"/>
           <polygon points="48,70 38,74 48,78" fill="#ef4444"/>
           <text x="72" y="65" fill="#ef4444" font-size="11" text-anchor="middle">Friction</text>
-          <!-- Tension arrows -->
           <text x="255" y="47" fill="#38bdf8" font-size="11" text-anchor="middle">Tension (T)</text>
         </svg>
         <div class="diagram-caption">Diagram 3.1: Connected bodies X and Y over a smooth frictionless pulley.</div>
@@ -771,7 +793,7 @@
 
   </div>
 
-  <!-- ======================== PART 2: PRACTICE & CBT ======================== -->
+  <!-- ======================== PART 2: PRACTICE & QUIZ ======================== -->
   <div id="part2" class="tab-content">
 
     <div class="concept-card">
@@ -842,125 +864,154 @@
       </div>
     </div>
 
-    <!-- TIMED QUIZ -->
+    <!-- QUIZ START SCREEN -->
     <div class="concept-card">
-      <div class="timer-bar">
-        <div><strong>Timed Quiz</strong> (10 Objective + 1 Theory)</div>
-        <div class="time-val" id="timer-display">20:00</div>
-      </div>
-
-      <div style="margin-bottom: 18px;">
-        <label style="color:var(--cyan); font-weight:600; font-size:0.9rem;">Student Full Name:</label>
-        <input type="text" id="student-name" placeholder="Enter your full name..." style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); background:var(--card-alt); color:#fff; margin-top:6px; font-size:0.95rem;">
-      </div>
-
-      <div class="quiz-q">
-        <h4>1. Which of the following dimensions represents Impulse?</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q1" value="A"> A. \(M L T^{-2}\)</label>
-          <label class="option-lbl"><input type="radio" name="q1" value="B"> B. \(M L T^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q1" value="C"> C. \(M L^{2} T^{-2}\)</label>
-          <label class="option-lbl"><input type="radio" name="q1" value="D"> D. \(M L^{-1} T^{-2}\)</label>
+      <div id="start-screen" class="start-screen">
+        <h3 style="color:var(--cyan); margin-bottom:10px;">Ready for the Quiz?</h3>
+        <p style="margin-bottom:20px;">Type your name, click start, pick your options, and view instant explanations for every question.</p>
+        
+        <div style="margin-bottom: 18px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto;">
+          <label style="color:var(--cyan); font-weight:600; font-size:0.9rem;">Student Full Name (Type 0000000 for Admin Mode):</label>
+          <input type="text" id="student-name" placeholder="Enter your full name..." oninput="checkAdminMode(this.value)" style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); background:var(--card-alt); color:#fff; margin-top:6px; font-size:0.95rem;">
         </div>
+
+        <button class="btn-start" onclick="startQuiz()">Start Quiz Now</button>
       </div>
 
-      <div class="quiz-q">
-        <h4>2. The reluctance of a body to change its state of rest or uniform motion is called:</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q2" value="A"> A. Impulse</label>
-          <label class="option-lbl"><input type="radio" name="q2" value="B"> B. Inertia</label>
-          <label class="option-lbl"><input type="radio" name="q2" value="C"> C. Momentum</label>
-          <label class="option-lbl"><input type="radio" name="q2" value="D"> D. Friction</label>
+      <!-- QUIZ QUESTIONS BODY -->
+      <div id="quiz-body">
+        <div id="admin-banner" class="admin-banner">🔓 ADMIN MODE ACTIVE (Answers Unlocked & Highlighted)</div>
+
+        <div class="quiz-q" id="question-q1">
+          <h4>1. Which of the following dimensions represents Impulse?</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q1" value="A"> A. \(M L T^{-2}\)</label>
+            <label class="option-lbl"><input type="radio" name="q1" value="B"> B. \(M L T^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q1" value="C"> C. \(M L^{2} T^{-2}\)</label>
+            <label class="option-lbl"><input type="radio" name="q1" value="D"> D. \(M L^{-1} T^{-2}\)</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q1', 'B')">Check Answer & Working</button>
+          <div id="feedback-q1" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>3. A force of \(20\text{ N}\) acts on a body of mass \(4\text{ kg}\) initially at rest for \(3\text{ s}\). What is the final velocity of the body?</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q3" value="A"> A. \(5\text{ m s}^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q3" value="B"> B. \(12\text{ m s}^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q3" value="C"> C. \(15\text{ m s}^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q3" value="D"> D. \(60\text{ m s}^{-1}\)</label>
+        <div class="quiz-q" id="question-q2">
+          <h4>2. The reluctance of a body to change its state of rest or uniform motion is called:</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q2" value="A"> A. Impulse</label>
+            <label class="option-lbl"><input type="radio" name="q2" value="B"> B. Inertia</label>
+            <label class="option-lbl"><input type="radio" name="q2" value="C"> C. Momentum</label>
+            <label class="option-lbl"><input type="radio" name="q2" value="D"> D. Friction</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q2', 'B')">Check Answer & Working</button>
+          <div id="feedback-q2" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>4. A man of mass \(60\text{ kg}\) stands in a lift descending with a uniform velocity of \(4\text{ m s}^{-1}\). Taking \(g = 10\text{ m s}^{-2}\), calculate the reaction of the floor on the man.</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q4" value="A"> A. \(840\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q4" value="B"> B. \(600\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q4" value="C"> C. \(360\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q4" value="D"> D. \(0\text{ N}\)</label>
+        <div class="quiz-q" id="question-q3">
+          <h4>3. A force of \(20\text{ N}\) acts on a body of mass \(4\text{ kg}\) initially at rest for \(3\text{ s}\). What is the final velocity of the body?</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q3" value="A"> A. \(5\text{ m s}^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q3" value="B"> B. \(12\text{ m s}^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q3" value="C"> C. \(15\text{ m s}^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q3" value="D"> D. \(60\text{ m s}^{-1}\)</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q3', 'C')">Check Answer & Working</button>
+          <div id="feedback-q3" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>5. In an inelastic collision between two bodies, which of the following quantities is conserved?</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q5" value="A"> A. Kinetic energy only</label>
-          <label class="option-lbl"><input type="radio" name="q5" value="B"> B. Linear momentum only</label>
-          <label class="option-lbl"><input type="radio" name="q5" value="C"> C. Both momentum and kinetic energy</label>
-          <label class="option-lbl"><input type="radio" name="q5" value="D"> D. Potential energy only</label>
+        <div class="quiz-q" id="question-q4">
+          <h4>4. A man of mass \(60\text{ kg}\) stands in a lift descending with a uniform velocity of \(4\text{ m s}^{-1}\). Taking \(g = 10\text{ m s}^{-2}\), calculate the reaction of the floor on the man.</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q4" value="A"> A. \(840\text{ N}\)</label>
+            <label class="option-lbl"><input type="radio" name="q4" value="B"> B. \(600\text{ N}\)</label>
+            <label class="option-lbl"><input type="radio" name="q4" value="C"> C. \(360\text{ N}\)</label>
+            <label class="option-lbl"><input type="radio" name="q4" value="D"> D. \(0\text{ N}\)</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q4', 'B')">Check Answer & Working</button>
+          <div id="feedback-q4" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>6. A block is acted upon by a forward force of \(10\text{ N}\) and an opposing frictional force of \(1\text{ N}\). If it accelerates at \(1.5\text{ m s}^{-2}\), what is the mass of the block?</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q6" value="A"> A. \(6\text{ kg}\)</label>
-          <label class="option-lbl"><input type="radio" name="q6" value="B"> B. \(9\text{ kg}\)</label>
-          <label class="option-lbl"><input type="radio" name="q6" value="C"> C. \(10\text{ kg}\)</label>
-          <label class="option-lbl"><input type="radio" name="q6" value="D"> D. \(15\text{ kg}\)</label>
+        <div class="quiz-q" id="question-q5">
+          <h4>5. In an inelastic collision between two bodies, which of the following quantities is conserved?</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q5" value="A"> A. Kinetic energy only</label>
+            <label class="option-lbl"><input type="radio" name="q5" value="B"> B. Linear momentum only</label>
+            <label class="option-lbl"><input type="radio" name="q5" value="C"> C. Both momentum and kinetic energy</label>
+            <label class="option-lbl"><input type="radio" name="q5" value="D"> D. Potential energy only</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q5', 'B')">Check Answer & Working</button>
+          <div id="feedback-q5" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>7. Why does a fielder draw his hands backward when catching a fast cricket ball?</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q7" value="A"> A. To reduce the time of contact</label>
-          <label class="option-lbl"><input type="radio" name="q7" value="B"> B. To increase the time of impact and reduce the force</label>
-          <label class="option-lbl"><input type="radio" name="q7" value="C"> C. To increase the impulse of the ball</label>
-          <label class="option-lbl"><input type="radio" name="q7" value="D"> D. To make the collision elastic</label>
+        <div class="quiz-q" id="question-q6">
+          <h4>6. A block is acted upon by a forward force of \(10\text{ N}\) and an opposing frictional force of \(1\text{ N}\). If it accelerates at \(1.5\text{ m s}^{-2}\), what is the mass of the block?</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q6" value="A"> A. \(6\text{ kg}\)</label>
+            <label class="option-lbl"><input type="radio" name="q6" value="B"> B. \(9\text{ kg}\)</label>
+            <label class="option-lbl"><input type="radio" name="q6" value="C"> C. \(10\text{ kg}\)</label>
+            <label class="option-lbl"><input type="radio" name="q6" value="D"> D. \(15\text{ kg}\)</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q6', 'A')">Check Answer & Working</button>
+          <div id="feedback-q6" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>8. Jet engines and rockets operate on the principle of:</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q8" value="A"> A. Conservation of energy</label>
-          <label class="option-lbl"><input type="radio" name="q8" value="B"> B. Conservation of linear momentum</label>
-          <label class="option-lbl"><input type="radio" name="q8" value="C"> C. Moments of a couple</label>
-          <label class="option-lbl"><input type="radio" name="q8" value="D"> D. Archimedes' principle</label>
+        <div class="quiz-q" id="question-q7">
+          <h4>7. Why does a fielder draw his hands backward when catching a fast cricket ball?</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q7" value="A"> A. To reduce the time of contact</label>
+            <label class="option-lbl"><input type="radio" name="q7" value="B"> B. To increase the time of impact and reduce the force</label>
+            <label class="option-lbl"><input type="radio" name="q7" value="C"> C. To increase the impulse of the ball</label>
+            <label class="option-lbl"><input type="radio" name="q7" value="D"> D. To make the collision elastic</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q7', 'B')">Check Answer & Working</button>
+          <div id="feedback-q7" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>9. The area under a Force-Time (\(F\text{--}t\)) graph represents:</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q9" value="A"> A. Mechanical work done</label>
-          <label class="option-lbl"><input type="radio" name="q9" value="B"> B. Power dissipated</label>
-          <label class="option-lbl"><input type="radio" name="q9" value="C"> C. Impulse (Change in momentum)</label>
-          <label class="option-lbl"><input type="radio" name="q9" value="D"> D. Kinetic energy</label>
+        <div class="quiz-q" id="question-q8">
+          <h4>8. Jet engines and rockets operate on the principle of:</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q8" value="A"> A. Conservation of energy</label>
+            <label class="option-lbl"><input type="radio" name="q8" value="B"> B. Conservation of linear momentum</label>
+            <label class="option-lbl"><input type="radio" name="q8" value="C"> C. Moments of a couple</label>
+            <label class="option-lbl"><input type="radio" name="q8" value="D"> D. Archimedes' principle</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q8', 'B')">Check Answer & Working</button>
+          <div id="feedback-q8" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>10. A trolley of mass \(4\text{ kg}\) moving at \(5\text{ m s}^{-1}\) collides with a stationary trolley of mass \(6\text{ kg}\). If they stick together, what is their common velocity?</h4>
-        <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q10" value="A"> A. \(1.5\text{ m s}^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q10" value="B"> B. \(2.0\text{ m s}^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q10" value="C"> C. \(2.5\text{ m s}^{-1}\)</label>
-          <label class="option-lbl"><input type="radio" name="q10" value="D"> D. \(3.0\text{ m s}^{-1}\)</label>
+        <div class="quiz-q" id="question-q9">
+          <h4>9. The area under a Force-Time (\(F\text{--}t\)) graph represents:</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q9" value="A"> A. Mechanical work done</label>
+            <label class="option-lbl"><input type="radio" name="q9" value="B"> B. Power dissipated</label>
+            <label class="option-lbl"><input type="radio" name="q9" value="C"> C. Impulse (Change in momentum)</label>
+            <label class="option-lbl"><input type="radio" name="q9" value="D"> D. Kinetic energy</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q9', 'C')">Check Answer & Working</button>
+          <div id="feedback-q9" class="q-feedback"></div>
         </div>
-      </div>
 
-      <div class="quiz-q">
-        <h4>11. [Theory - 5 Mins] A body of mass \(5.0\text{ kg}\) is pulled along a horizontal bench by a force \(F\) against a frictional resistance of \(5\text{ N}\). If it accelerates at \(2.0\text{ m s}^{-2}\) (\(g = 10\text{ m s}^{-2}\)), calculate: (i) the net force, (ii) the applied force \(F\), (iii) the coefficient of kinetic friction.</h4>
-        <textarea id="theory-ans" rows="4" placeholder="Type your step-by-step working and final answers here..." style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:var(--card-bg); color:#fff; font-size:0.9rem;"></textarea>
-      </div>
+        <div class="quiz-q" id="question-q10">
+          <h4>10. A trolley of mass \(4\text{ kg}\) moving at \(5\text{ m s}^{-1}\) collides with a stationary trolley of mass \(6\text{ kg}\). If they stick together, what is their common velocity?</h4>
+          <div class="option-row">
+            <label class="option-lbl"><input type="radio" name="q10" value="A"> A. \(1.5\text{ m s}^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q10" value="B"> B. \(2.0\text{ m s}^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q10" value="C"> C. \(2.5\text{ m s}^{-1}\)</label>
+            <label class="option-lbl"><input type="radio" name="q10" value="D"> D. \(3.0\text{ m s}^{-1}\)</label>
+          </div>
+          <button class="check-ans-btn" onclick="checkObjective('q10', 'B')">Check Answer & Working</button>
+          <div id="feedback-q10" class="q-feedback"></div>
+        </div>
 
-      <button class="btn-submit" onclick="submitAssessment()">Submit Quiz & Log Score</button>
-      <div id="cbt-result" class="result-box"></div>
+        <div class="quiz-q" id="question-q11">
+          <h4>11. [Theory Problem] A body of mass \(5.0\text{ kg}\) is pulled along a horizontal bench against a frictional resistance of \(5\text{ N}\) with an acceleration of \(2.0\text{ m s}^{-2}\) (\(g = 10\text{ m s}^{-2}\)). Enter the final numerical value of the <strong>Applied Force \(F\)</strong> (Exact correct value is \(15\text{ N}\)):</h4>
+          <input type="number" id="theory-ans-val" step="any" placeholder="Enter numerical value..." style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:var(--card-bg); color:#fff; font-size:0.95rem; margin-top:6px;">
+          <button class="check-ans-btn" onclick="checkTheory()">Check Theory Answer & Working</button>
+          <div id="feedback-q11" class="q-feedback"></div>
+        </div>
+
+        <button class="btn-submit" onclick="submitAssessment()">Finalize & Submit All Results</button>
+        <div id="cbt-result" class="result-box"></div>
+      </div>
     </div>
 
   </div>
@@ -969,17 +1020,19 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZsS4AC-38_2dOpr1CYc4ffKiln1jRPNMEBp-Wy89M0Ya8OthYd-GbFCicrJ_xN6M/exec";
 
     const ANSWERS = {
-      q1: "B",
-      q2: "B",
-      q3: "C",
-      q4: "B",
-      q5: "B",
-      q6: "A",
-      q7: "B",
-      q8: "B",
-      q9: "C",
-      q10: "B"
+      q1: { correct: "B", text: "Correct! Impulse = Change in momentum, dimension is \(M L T^{-1}\)." },
+      q2: { correct: "B", text: "Correct! Inertia is the reluctance to change state." },
+      q3: { correct: "C", text: "Correct! \(v = u + at \implies v = 0 + (\frac{20}{4}) \times 3 = 15\text{ m s}^{-1}\)." },
+      q4: { correct: "B", text: "Correct! Uniform velocity means \(a = 0\), so \(R = mg = 60 \times 10 = 600\text{ N}\)." },
+      q5: { correct: "B", text: "Correct! Momentum is always conserved, kinetic energy is lost." },
+      q6: { correct: "A", text: "Correct! \(m = \frac{F_{net}}{a} = \frac{10 - 1}{1.5} = \frac{9}{1.5} = 6\text{ kg}\)." },
+      q7: { correct: "B", text: "Correct! Increasing impact time reduces average force (\(F = \frac{\Delta p}{t}\))." },
+      q8: { correct: "B", text: "Correct! Conservation of linear momentum powers rocket exhaust." },
+      q9: { correct: "C", text: "Correct! Area under F-t graph equals Impulse." },
+      q10: { correct: "B", text: "Correct! \(v = \frac{m_1 u_1 + m_2 u_2}{m_1 + m_2} = \frac{4 \times 5 + 6 \times 0}{10} = 2.0\text{ m s}^{-1}\)." }
     };
+
+    const THEORY_ANSWER = 15; // 15 N
 
     function openTab(tabId) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1014,40 +1067,88 @@
       if (window.MathJax) MathJax.typesetPromise();
     }
 
-    // 20-Minute Quiz Timer (15m Objective + 5m Theory)
-    let totalSeconds = 20 * 60;
-    const timerDisplay = document.getElementById('timer-display');
-    const timerInterval = setInterval(() => {
-      const minutes = Math.floor(totalSeconds / 60);
-      const seconds = totalSeconds % 60;
-      timerDisplay.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      if (totalSeconds <= 0) {
-        clearInterval(timerInterval);
-        submitAssessment();
+    function checkAdminMode(val) {
+      const banner = document.getElementById('admin-banner');
+      if (val.trim() === "0000000") {
+        banner.style.display = "block";
+        for (let q in ANSWERS) {
+          const correctRadio = document.querySelector(`input[name="${q}"][value="${ANSWERS[q].correct}"]`);
+          if (correctRadio) correctRadio.closest('.option-lbl').classList.add('admin-highlight');
+        }
+        document.getElementById('question-q11').classList.add('admin-highlight');
+      } else {
+        banner.style.display = "none";
+        document.querySelectorAll('.option-lbl').forEach(el => el.classList.remove('admin-highlight'));
+        document.getElementById('question-q11').classList.remove('admin-highlight');
       }
-      totalSeconds--;
-    }, 1000);
+    }
+
+    function startQuiz() {
+      const name = document.getElementById('student-name').value.trim();
+      if (!name) {
+        alert("Please enter your name first!");
+        return;
+      }
+      document.getElementById('start-screen').style.display = "none";
+      document.getElementById('quiz-body').style.display = "block";
+    }
+
+    function checkObjective(qKey, correctOpt) {
+      const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+      const feedbackBox = document.getElementById('feedback-' + qKey);
+      feedbackBox.style.display = "block";
+
+      if (!selected) {
+        feedbackBox.innerHTML = `<span style="color:var(--amber)">Please select an option first! Correct answer is option ${correctOpt}.<br>${ANSWERS[qKey].text}</span>`;
+      } else if (selected.value === correctOpt) {
+        feedbackBox.innerHTML = `<span style="color:var(--emerald)">Your option (${selected.value}) is correct! 🎉<br>${ANSWERS[qKey].text}</span>`;
+      } else {
+        feedbackBox.innerHTML = `<span style="color:var(--rose)">You selected (${selected.value}), but the correct option is (${correctOpt}).<br>${ANSWERS[qKey].text}</span>`;
+      }
+      if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    function checkTheory() {
+      const userVal = parseFloat(document.getElementById('theory-ans-val').value);
+      const feedbackBox = document.getElementById('feedback-q11');
+      feedbackBox.style.display = "block";
+
+      const lower = THEORY_ANSWER * 0.95;
+      const upper = THEORY_ANSWER * 1.05;
+
+      if (isNaN(userVal)) {
+        feedbackBox.innerHTML = `<span style="color:var(--amber)">Please type a numerical value first. Correct answer is 15 N.</span>`;
+      } else if (userVal >= lower && userVal <= upper) {
+        feedbackBox.innerHTML = `<span style="color:var(--emerald)">Your answer (${userVal} N) is correct (within ±5% range)!<br><strong>Working:</strong><br>1. Net Force \(F_{net} = ma = 5.0 \times 2.0 = 10\text{ N}\).<br>2. Applied Force \(F = F_{net} + \text{Friction} = 10 + 5 = 15\text{ N}\).</span>`;
+      } else {
+        feedbackBox.innerHTML = `<span style="color:var(--rose)">Your answer (${userVal} N) is outside the acceptable range.<br><strong>Correct Working:</strong><br>1. \(F_{net} = ma = 5.0 \times 2.0 = 10\text{ N}\).<br>2. \(F = 10 + 5 = 15\text{ N}\).</span>`;
+      }
+      if (window.MathJax) MathJax.typesetPromise();
+    }
 
     function submitAssessment() {
-      clearInterval(timerInterval);
       const studentName = document.getElementById('student-name').value.trim() || "Anonymous Student";
       let score = 0;
-      let total = Object.keys(ANSWERS).length;
+      let total = 11;
       let breakdown = {};
 
       for (let key in ANSWERS) {
         const selected = document.querySelector(`input[name="${key}"]:checked`);
-        if (selected && selected.value === ANSWERS[key]) {
+        if (selected && selected.value === ANSWERS[key].correct) {
           score++;
           breakdown[key.toUpperCase()] = "Correct";
         } else {
-          const userVal = selected ? selected.value : "Blank";
-          breakdown[key.toUpperCase()] = `Wrong (${userVal} vs ${ANSWERS[key]})`;
+          breakdown[key.toUpperCase()] = `Wrong/Unanswered (${selected ? selected.value : 'Blank'})`;
         }
       }
 
-      const theoryText = document.getElementById('theory-ans').value.trim();
-      breakdown["Q11_Theory"] = theoryText ? theoryText : "No theory response";
+      const userTheory = parseFloat(document.getElementById('theory-ans-val').value);
+      if (!isNaN(userTheory) && userTheory >= THEORY_ANSWER * 0.95 && userTheory <= THEORY_ANSWER * 1.05) {
+        score++;
+        breakdown["Q11_THEORY"] = `Correct (${userTheory})`;
+      } else {
+        breakdown["Q11_THEORY"] = `Wrong/Out of Range (${isNaN(userTheory) ? 'Blank' : userTheory})`;
+      }
 
       const scoreStr = `${score} / ${total}`;
       const percentage = Math.round((score / total) * 100);
@@ -1055,8 +1156,8 @@
       const resBox = document.getElementById('cbt-result');
       resBox.style.display = "block";
       resBox.innerHTML = `<h3>Quiz Submitted!</h3>
-        <p style="font-size:1.15rem; margin-top:8px;">Objective Score: <strong>${scoreStr} (${percentage}%)</strong></p>
-        <p style="font-size:0.88rem; color:#cbd5e1; margin-top:6px;">Theory Expected Answers: (i) Net Force = 10 N, (ii) Applied Force F = 15 N, (iii) Coefficient = 0.1</p>`;
+        <p style="font-size:1.15rem; margin-top:8px;">Final Score: <strong>${scoreStr} (${percentage}%)</strong></p>
+        <p style="font-size:0.85rem; color:#cbd5e1; margin-top:6px;">Results successfully logged to your gradebook spreadsheet.</p>`;
 
       const payload = {
         Subject: "Physics",
