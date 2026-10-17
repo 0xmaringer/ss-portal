@@ -3,26 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SSS2 First Term STEM Portal</title>
+  <title>SSS 2 STEM Learning Portal</title>
   <style>
     :root {
       --bg: #0f172a;
       --card: #1e293b;
+      --border: #334155;
       --text: #f8fafc;
       --muted: #94a3b8;
-      --accent: #38bdf8;
+      --cyan: #38bdf8;
+      --emerald: #10b981;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background: var(--bg); color: var(--text); padding: 24px 16px; max-width: 800px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #334155; }
-    .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; }
-    h1 { font-size: 1.75rem; margin-bottom: 8px; }
+    body { background: var(--bg); color: var(--text); padding: 24px 16px; max-width: 900px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; }
+    h1 { font-size: 1.85rem; margin-bottom: 8px; }
     p.sub { color: var(--muted); font-size: 0.95rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-    .card { background: var(--card); border: 1px solid #334155; border-radius: 14px; padding: 20px; transition: transform 0.15s ease; }
-    .card h2 { font-size: 1.2rem; margin-bottom: 6px; color: var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .card h2 { font-size: 1.25rem; margin-bottom: 6px; color: var(--cyan); }
     .card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; line-height: 1.4; }
-    .status { font-size: 0.8rem; color: #cbd5e1; background: #0f172a; padding: 8px 12px; border-radius: 8px; display: inline-block; }
+    .topic-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .topic-link { display: flex; justify-content: space-between; align-items: center; background: #0f172a; border: 1px solid var(--border); color: var(--text); text-decoration: none; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 500; transition: all 0.2s; }
+    .topic-link:hover { border-color: var(--cyan); background: #172554; }
+    .status-tag { font-size: 0.75rem; background: rgba(16, 185, 129, 0.2); color: var(--emerald); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+    .pending-tag { font-size: 0.8rem; color: var(--muted); background: #0f172a; padding: 8px 12px; border-radius: 8px; display: inline-block; }
   </style>
 </head>
 <body>
@@ -33,25 +39,45 @@
   </header>
 
   <div class="grid">
+    <!-- Physics -->
     <div class="card">
-      <h2> Physics</h2>
-      <p>Mechanics, Vectors, Projectile Motion, Equilibrium of Forces & Simple Harmonic Motion.</p>
-      <span class="status">📂 First Term Modules Loading...</span>
+      <div>
+        <h2> Physics</h2>
+        <p>Mechanics, Vectors, Equations of Motion, Newton's Laws & Equilibrium.</p>
+        <div class="topic-list">
+          <a class="topic-link" href="sss2/physics/week5-newtons-laws-momentum-impulse.html">
+            <span>Week 5: Newton's Laws, Momentum & Impulse</span>
+            <span class="status-tag">Active</span>
+          </a>
+        </div>
+      </div>
     </div>
+
+    <!-- Mathematics -->
     <div class="card">
-      <h2> Mathematics</h2>
-      <p>Logarithms, Approximations, Sequences & Series, Quadratic Equations & Simultaneous Equations.</p>
-      <span class="status">📂 First Term Modules Loading...</span>
+      <div>
+        <h2> Mathematics</h2>
+        <p>Logarithms, Approximations, Sequences & Series, Quadratic Equations & Simultaneous Equations.</p>
+        <span class="pending-tag">📂 Modules Loading...</span>
+      </div>
     </div>
+
+    <!-- Further Mathematics -->
     <div class="card">
-      <h2> Further Mathematics</h2>
-      <p>Roots of Quadratic Equations, Polynomials, Logical Reasoning, Trigonometry & Permutations.</p>
-      <span class="status">📂 First Term Modules Loading...</span>
+      <div>
+        <h2> Further Mathematics</h2>
+        <p>Roots of Quadratic Equations, Polynomials, Logical Reasoning & Trigonometry.</p>
+        <span class="pending-tag">📂 Modules Loading...</span>
+      </div>
     </div>
+
+    <!-- Chemistry -->
     <div class="card">
-      <h2> Chemistry</h2>
-      <p>Periodic Table, Chemical Reactions, Mass-Volume Relationships & Acid-Base Titration.</p>
-      <span class="status">📂 First Term Modules Loading...</span>
+      <div>
+        <h2> Chemistry</h2>
+        <p>Periodic Table, Families of Elements, Redox Reactions & Electrolysis.</p>
+        <span class="pending-tag">📂 Modules Loading...</span>
+      </div>
     </div>
   </div>
 </body>
