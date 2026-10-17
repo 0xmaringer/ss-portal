@@ -2,16 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>SSS 2 Physics: Newton's Laws, Momentum & Impulse</title>
-  <!-- MathJax for rendering vertical fractions, subscripts, and equations -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      },
+      chtml: {
+        scale: 0.95,
+        mtextInheritFont: true
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     :root {
-      --bg-main: #0f172a;
+      --bg-main: #0b1120;
       --card-bg: #1e293b;
-      --card-alt: #111827;
+      --card-alt: #0f172a;
       --border: #334155;
       --text: #f8fafc;
       --muted: #94a3b8;
@@ -21,61 +31,380 @@
       --rose: #ef4444;
       --purple: #a855f7;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg-main); color: var(--text); padding: 16px; line-height: 1.6; max-width: 900px; margin: 0 auto; }
-    header { text-align: center; padding: 24px 12px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
-    .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; }
-    h1 { font-size: 1.85rem; margin-bottom: 8px; color: var(--text); }
-    .subtitle { color: var(--muted); font-size: 0.95rem; }
-    
-    .nav-tabs { display: flex; gap: 8px; margin-bottom: 24px; background: var(--card-bg); padding: 6px; border-radius: 12px; border: 1px solid var(--border); }
-    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: var(--muted); font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; text-align: center; }
-    .tab-btn.active { background: var(--cyan); color: #000; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text);
+      padding: 14px;
+      line-height: 1.6;
+      max-width: 820px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 20px 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--cyan);
+      color: #000;
+    }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    .concept-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 24px; }
-    .concept-card h2 { font-size: 1.3rem; color: var(--cyan); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .concept-card h3 { font-size: 1.05rem; color: var(--amber); margin: 16px 0 8px 0; }
-    p { margin-bottom: 12px; color: #cbd5e1; font-size: 0.95rem; }
-    ul { margin-left: 20px; margin-bottom: 14px; color: #cbd5e1; }
+    .concept-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .concept-card h2 {
+      font-size: 1.18rem;
+      color: var(--cyan);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+    .concept-card h3 {
+      font-size: 1rem;
+      color: var(--amber);
+      margin: 16px 0 8px 0;
+    }
+    p {
+      margin-bottom: 12px;
+      color: #e2e8f0;
+      font-size: 0.93rem;
+      word-wrap: break-word;
+    }
+    ul {
+      margin-left: 18px;
+      margin-bottom: 14px;
+      color: #e2e8f0;
+      font-size: 0.92rem;
+    }
     li { margin-bottom: 6px; }
 
-    .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--cyan); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 16px; font-size: 0.92rem; }
-    .callout.amber { background: rgba(245, 158, 11, 0.08); border-color: var(--amber); }
+    .callout {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--cyan);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+    .callout.amber {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: var(--amber);
+    }
 
-    .diagram-box { background: var(--card-alt); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin: 16px 0; text-align: center; }
-    .diagram-caption { font-size: 0.82rem; color: var(--muted); margin-top: 8px; }
+    .formula-box {
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin: 12px 0;
+      text-align: center;
+      overflow-x: auto;
+      max-width: 100%;
+    }
 
-    .worked-example { background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 16px; margin: 16px 0; }
-    .worked-example h4 { color: var(--emerald); font-size: 0.95rem; margin-bottom: 8px; display: flex; justify-content: space-between; }
-    .working-steps { background: var(--card-alt); padding: 12px; border-radius: 8px; margin-top: 8px; border: 1px solid var(--border); }
+    .diagram-box {
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin: 14px 0;
+      text-align: center;
+    }
+    .diagram-box svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .diagram-caption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
 
-    .sim-card { background: #131c2e; border: 1px solid var(--cyan); border-radius: 12px; padding: 16px; margin: 20px 0; }
+    .worked-example {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 16px 0;
+    }
+    .worked-example h4 {
+      color: var(--emerald);
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .working-steps {
+      background: var(--card-alt);
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+      max-width: 100%;
+    }
+    .step-line {
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #1e293b;
+      font-size: 0.9rem;
+    }
+    .step-line:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .step-label {
+      color: var(--muted);
+      font-size: 0.83rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .sim-card {
+      background: #131c2e;
+      border: 1px solid var(--cyan);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 18px 0;
+    }
     .slider-group { margin-bottom: 12px; }
-    .slider-group label { display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--cyan); margin-bottom: 4px; }
-    input[type=range] { width: 100%; accent-color: var(--cyan); }
-    .sim-output { background: var(--card-bg); padding: 10px; border-radius: 8px; font-weight: bold; color: var(--emerald); text-align: center; margin-top: 10px; }
+    .slider-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      color: var(--cyan);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--cyan);
+    }
+    .sim-output {
+      background: var(--card-alt);
+      padding: 12px;
+      border-radius: 8px;
+      color: var(--emerald);
+      text-align: center;
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
 
-    .drill-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-    .drill-header { font-weight: 600; color: var(--purple); margin-bottom: 8px; }
-    .reveal-btn { background: var(--border); color: var(--text); border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; margin-top: 8px; }
-    .solution-tray { display: none; margin-top: 12px; padding: 12px; background: var(--card-alt); border-radius: 8px; border-left: 3px solid var(--purple); }
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      min-width: 300px;
+    }
+    table.data-table th, table.data-table td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+    table.data-table th {
+      background: var(--card-alt);
+      color: var(--cyan);
+      font-weight: 600;
+    }
 
-    .timer-bar { background: var(--card-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 10px; z-index: 100; }
-    .time-val { font-size: 1.25rem; font-weight: bold; color: var(--amber); }
-    .quiz-q { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-    .quiz-q h4 { margin-bottom: 12px; font-size: 0.95rem; }
-    .option-row { display: flex; flex-direction: column; gap: 8px; }
-    .option-lbl { display: flex; align-items: center; gap: 10px; background: var(--card-alt); padding: 10px 14px; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); font-size: 0.9rem; }
+    .drill-card {
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .drill-header {
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .drill-input-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .drill-input {
+      flex: 1;
+      min-width: 160px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .reveal-btn {
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .solution-tray {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      border-left: 3px solid var(--emerald);
+      overflow-x: auto;
+    }
+
+    .timer-bar {
+      background: var(--card-alt);
+      border: 1px solid var(--amber);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 8px;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .time-val {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: var(--amber);
+    }
+    .quiz-q {
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .quiz-q h4 {
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      color: #fff;
+      line-height: 1.45;
+    }
+    .option-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-lbl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card-bg);
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
     .option-lbl:hover { border-color: var(--cyan); }
-    .btn-submit { background: var(--emerald); color: #000; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
-    .result-box { display: none; background: #064e3b; border: 1px solid var(--emerald); padding: 16px; border-radius: 10px; margin-top: 20px; text-align: center; }
-
-    table.data-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
-    table.data-table th, table.data-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
-    table.data-table th { background: var(--card-alt); color: var(--cyan); }
+    .btn-submit {
+      background: var(--emerald);
+      color: #000;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .result-box {
+      display: none;
+      background: #064e3b;
+      border: 1px solid var(--emerald);
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 18px;
+      text-align: center;
+    }
+    mjx-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -83,389 +412,554 @@
   <header>
     <span class="badge">SSS 2 • First Term • Week 5</span>
     <h1>Newton's Laws of Motion, Momentum & Impulse</h1>
-    <p class="subtitle">Complete Standard Physics Module with Interactive Experiments & CBT Verification</p>
+    <p class="subtitle">Interactive Physics Lesson, Worked Derivations, Practice Drills & Timed CBT</p>
   </header>
 
   <div class="nav-tabs">
-    <button class="tab-btn active" onclick="openTab('part1')">Part 1: Concepts & Derivations</button>
-    <button class="tab-btn" onclick="openTab('part2')">Part 2: Drills & CBT Exam</button>
+    <button class="tab-btn active" onclick="openTab('part1')">Part 1: Concepts & Examples</button>
+    <button class="tab-btn" onclick="openTab('part2')">Part 2: Practice & Timed Quiz</button>
   </div>
 
-  <!-- ======================== PART 1 ======================== -->
+  <!-- ======================== PART 1: CONCEPTS ======================== -->
   <div id="part1" class="tab-content active">
 
-    <!-- Concept 1 -->
+    <!-- SECTION 1 -->
     <div class="concept-card">
-      <h2>1. Newton's First Law & The Principle of Inertia</h2>
+      <h2>1. Newton's First Law & Inertia</h2>
       <div class="callout">
-        <strong>Newton's First Law of Motion:</strong> Every body continues in its state of rest or of uniform motion in a straight line unless acted upon by an external net force[span_2](start_span)[span_2](end_span).
+        <strong>Newton's First Law of Motion:</strong> Every object continues in its state of rest or of uniform motion in a straight line unless acted upon by an external resultant force.
       </div>
-      <p><strong>Inertia</strong> is the inherent reluctance of a physical body to change its state of rest or uniform motion[span_3](start_span)[span_3](end_span). <strong>Mass</strong> is the quantitative measure of inertia[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span). A fully loaded haulage truck possesses greater inertia than a passenger car; thus, it requires a much larger opposing force to arrest its motion over an identical duration[span_6](start_span)[span_6](end_span).</p>
+      <p><strong>Inertia</strong> is the natural tendency of a body to resist any change to its state of rest or uniform motion. The <strong>mass</strong> of an object is a quantitative measure of its inertia. A heavy lorry requires a much larger braking force than a small bicycle because its larger mass gives it much greater inertia.</p>
+      
+      <ul>
+        <li><strong>Inertia of Rest:</strong> When a stationary bus suddenly surges forward, standing passengers jerk backward because their bodies tend to remain at rest relative to the ground.</li>
+        <li><strong>Inertia of Motion:</strong> When a fast-moving bus brakes suddenly, passengers lurch forward because their bodies tend to continue moving forward at the original speed.</li>
+      </ul>
 
       <div class="diagram-box">
-        <svg viewBox="0 0 450 140" width="100%" height="140" style="max-width:450px;">
-          <line x1="20" y1="100" x2="430" y2="100" stroke="#94a3b8" stroke-width="2"/>
-          <!-- Hatching on floor -->
-          <line x1="30" y1="100" x2="20" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="80" y1="100" x2="70" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="130" y1="100" x2="120" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="180" y1="100" x2="170" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="230" y1="100" x2="220" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="280" y1="100" x2="270" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="330" y1="100" x2="320" y2="110" stroke="#475569" stroke-width="1.5"/>
-          <line x1="380" y1="100" x2="370" y2="110" stroke="#475569" stroke-width="1.5"/>
+        <svg viewBox="0 0 420 150">
+          <!-- Floor -->
+          <line x1="20" y1="105" x2="400" y2="105" stroke="#94a3b8" stroke-width="2.5"/>
+          <line x1="50" y1="105" x2="35" y2="120" stroke="#475569" stroke-width="1.5"/>
+          <line x1="110" y1="105" x2="95" y2="120" stroke="#475569" stroke-width="1.5"/>
+          <line x1="170" y1="105" x2="155" y2="120" stroke="#475569" stroke-width="1.5"/>
+          <line x1="230" y1="105" x2="215" y2="120" stroke="#475569" stroke-width="1.5"/>
+          <line x1="290" y1="105" x2="275" y2="120" stroke="#475569" stroke-width="1.5"/>
+          <line x1="350" y1="105" x2="335" y2="120" stroke="#475569" stroke-width="1.5"/>
           <!-- Block -->
-          <rect x="175" y="45" width="100" height="55" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="4"/>
-          <text x="225" y="77" fill="#f8fafc" font-size="13" text-anchor="middle" font-weight="bold">Mass m</text>
-          <!-- Weight & Reaction -->
-          <line x1="225" y1="100" x2="225" y2="135" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
-          <text x="235" y="130" fill="#ef4444" font-size="11">W = m·g</text>
-          <line x1="225" y1="45" x2="225" y2="10" stroke="#10b981" stroke-width="2"/>
-          <text x="235" y="20" fill="#10b981" font-size="11">R (Normal Reaction)</text>
-          <!-- Applied Force -->
-          <line x1="275" y1="72" x2="360" y2="72" stroke="#38bdf8" stroke-width="2.5"/>
-          <polygon points="360,68 370,72 360,76" fill="#38bdf8"/>
-          <text x="325" y="62" fill="#38bdf8" font-size="12" font-weight="bold">Pull (P)</text>
-          <!-- Friction -->
-          <line x1="175" y1="98" x2="90" y2="98" stroke="#f59e0b" stroke-width="2.5"/>
-          <polygon points="90,94 80,98 90,102" fill="#f59e0b"/>
-          <text x="125" y="90" fill="#f59e0b" font-size="11" font-weight="bold">Friction (F<tspan dy="3" font-size="9">f</tspan>)</text>
+          <rect x="150" y="50" width="110" height="55" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="5"/>
+          <text x="205" y="82" fill="#f8fafc" font-size="13" text-anchor="middle" font-weight="bold">Block (m)</text>
+          <!-- Normal Reaction R -->
+          <line x1="205" y1="50" x2="205" y2="14" stroke="#10b981" stroke-width="2.5"/>
+          <polygon points="200,18 205,8 210,18" fill="#10b981"/>
+          <text x="215" y="22" fill="#10b981" font-size="11" font-weight="bold">R (Reaction)</text>
+          <!-- Weight W -->
+          <line x1="205" y1="105" x2="205" y2="140" stroke="#ef4444" stroke-width="2.5"/>
+          <polygon points="200,136 205,146 210,136" fill="#ef4444"/>
+          <text x="215" y="142" fill="#ef4444" font-size="11" font-weight="bold">W = mg</text>
+          <!-- Applied Pull P -->
+          <line x1="260" y1="77" x2="355" y2="77" stroke="#38bdf8" stroke-width="2.5"/>
+          <polygon points="352,72 364,77 352,82" fill="#38bdf8"/>
+          <text x="310" y="67" fill="#38bdf8" font-size="11" font-weight="bold">Applied Pull (P)</text>
+          <!-- Friction F -->
+          <line x1="150" y1="100" x2="65" y2="100" stroke="#f59e0b" stroke-width="2.5"/>
+          <polygon points="68,95 56,100 68,105" fill="#f59e0b"/>
+          <text x="100" y="90" fill="#f59e0b" font-size="11" font-weight="bold">Friction (F)</text>
         </svg>
-        <div class="diagram-caption">Free-body diagram of an object on a rough surface acted upon by a horizontal pull[span_7](start_span)[span_7](end_span).</div>
+        <div class="diagram-caption">Diagram 1.1: Forces acting on a block pulled along a rough horizontal surface.</div>
+      </div>
+
+      <h3>Differences Between Mass and Weight</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Inertial Mass (\(m\))</th>
+              <th>Weight (\(W\))</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quantity of matter in a body (measure of inertia).</td>
+              <td>Gravitational pull acting on a body (\(W = mg\)).</td>
+            </tr>
+            <tr>
+              <td>Constant everywhere in the universe.</td>
+              <td>Varies from place to place with gravity \(g\).</td>
+            </tr>
+            <tr>
+              <td>Scalar quantity; fundamental unit is kilogram (\(\text{kg}\)).</td>
+              <td>Vector quantity; derived unit is Newton (\(\text{N}\)).</td>
+            </tr>
+            <tr>
+              <td>Measured with a chemical or beam balance.</td>
+              <td>Measured with a spring balance.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="worked-example">
-        <h4><span>Worked Example 1.1</span> <span class="badge">Threshold Friction</span></h4>
-        <p>A metal crate of mass \(15\text{ kg}\) rests on a rough horizontal depot floor where the limiting static friction is \(45\text{ N}\)[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span). If a worker applies a horizontal pull of \(30\text{ N}\), calculate the acceleration produced[span_10](start_span)[span_10](end_span).</p>
+        <h4><span>Worked Example 1.1</span> <span class="badge">Static Friction Threshold</span></h4>
+        <p>A metal crate of mass \(15\text{ kg}\) rests on a rough horizontal floor where the limiting static friction is \(45\text{ N}\). If a worker applies a horizontal pull of \(30\text{ N}\), calculate the acceleration of the crate.</p>
         <div class="working-steps">
-          $$\text{Applied Pull } P = 30\text{ N}$$
-          $$\text{Limiting Static Friction } F_s = 45\text{ N}$$
-          $$\text{Since } P < F_s \text{, the applied force cannot overcome static friction[span_11](start_span)[span_11](end_span).}$$
-          $$\text{Net Unbalanced Force } F_{net} = 0\text{ N}$$
-          $$a = \frac{F_{net}}{m} = \frac{0}{15} = 0\text{ m s}^{-2}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Write down the given forces</span>
+            \[P = 30\text{ N}, \quad F_s = 45\text{ N}, \quad m = 15\text{ kg}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Compare applied pull with limiting static friction</span>
+            <p style="margin:4px 0; font-size:0.88rem;">Since the applied pull (\(30\text{ N}\)) is less than the limiting static friction (\(45\text{ N}\)), the crate does not move. Static friction simply matches the \(30\text{ N}\) pull.</p>
+            \[F_r = 30\text{ N} - 30\text{ N} = 0\text{ N}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 3: Calculate acceleration</span>
+            \[a = \frac{F_r}{m} = \frac{0}{15} = 0\text{ m s}^{-2}\]
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Concept 2 -->
+    <!-- SECTION 2 -->
     <div class="concept-card">
-      <h2>2. Linear Momentum, Impulse & Newton's Second Law</h2>
-      <p><strong>Linear Momentum (\(p\))</strong> is the product of mass and velocity[span_12](start_span)[span_12](end_span)[span_13](start_span)[span_13](end_span):</p>
-      $$p = m \cdot v \quad [\text{Unit: kg m s}^{-1} \text{ or N s}] \text{[span_14](start_span)[span_14](end_span)}$$
-      
-      <div class="callout">
-        <strong>Newton's Second Law of Motion:</strong> The rate of change of momentum of a body is directly proportional to the applied force and takes place in the direction of the straight line in which the force acts[span_15](start_span)[span_15](end_span).
+      <h2>2. Momentum, Impulse & Newton's Second Law</h2>
+      <p><strong>Linear Momentum (\(p\))</strong> of a body is defined as the product of its mass and its velocity:</p>
+      <div class="formula-box">
+        \[p = m \times v \quad \text{(Unit: }\text{kg m s}^{-1}\text{ or }\text{N s}\text{)}\]
       </div>
 
-      <p>From this definition, force is derived mathematically[span_16](start_span)[span_16](end_span):</p>
-      $$F \propto \frac{\Delta p}{\Delta t} = \frac{m(v - u)}{t}$$
-      $$\text{Since acceleration } a = \frac{v - u}{t} \text{[span_17](start_span)[span_17](end_span)}:$$
-      $$F = m \cdot a \text{[span_18](start_span)[span_18](end_span)}$$
+      <div class="callout">
+        <strong>Newton's Second Law of Motion:</strong> The time rate of change of momentum of a body is directly proportional to the applied force and takes place in the direction in which the force acts.
+      </div>
 
-      <p><strong>Impulse (\(I\))</strong> is the product of an applied force and the duration of its impact[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span):</p>
-      $$I = F \cdot \Delta t = m(v - u) = \Delta p \text{[span_21](start_span)[span_21](end_span)[span_22](start_span)[span_22](end_span)}$$
+      <p>If a force \(F\) acts on a body of mass \(m\) for time \(t\) and changes its velocity from initial velocity \(u\) to final velocity \(v\):</p>
+      <div class="formula-box">
+        \[F \propto \frac{mv - mu}{t} \implies F = \frac{m(v - u)}{t}\]
+        \[\text{Since } a = \frac{v - u}{t}, \quad F = ma\]
+      </div>
 
-      <!-- Interactive Sim -->
+      <p><strong>Impulse (\(I\))</strong> is the product of a force and the time for which it acts. It is equal to the total change in momentum:</p>
+      <div class="formula-box">
+        \[I = F \times t = mv - mu = \Delta p \quad \text{(Unit: }\text{N s}\text{)}\]
+      </div>
+
+      <!-- Interactive Simulator -->
       <div class="sim-card">
-        <h3 style="margin-top:0; color:var(--cyan);">Interactive Simulator: Newton's Second Law</h3>
+        <h3 style="margin-top:0; color:var(--cyan);">Interactive Lab: Net Force & Acceleration</h3>
         <div class="slider-group">
-          <label>Applied Net Force (\(F_{net}\)): <span id="val-force">30 N</span></label>
-          <input type="range" id="sim-force" min="5" max="100" value="30" oninput="updateSim()">
+          <label><span>Resultant Force (\(F_r\)):</span> <span id="val-force">40 N</span></label>
+          <input type="range" id="sim-force" min="5" max="120" value="40" oninput="updateSim()">
         </div>
         <div class="slider-group">
-          <label>Inertial Mass (\(m\)): <span id="val-mass">5 kg</span></label>
+          <label><span>Mass of Body (\(m\)):</span> <span id="val-mass">5 kg</span></label>
           <input type="range" id="sim-mass" min="1" max="25" value="5" oninput="updateSim()">
         </div>
         <div class="sim-output" id="sim-accel">
-          Acceleration: \(a = 6.00\text{ m s}^{-2}\)
+          \[a = \frac{F_r}{m} = \frac{40}{5} = 8.00\text{ m s}^{-2}\]
         </div>
       </div>
 
       <div class="worked-example">
-        <h4><span>Worked Example 2.1</span> <span class="badge">WAEC Standard</span></h4>
-        <p>A wooden block of mass \(5\text{ kg}\) is pulled on a platform by a force of \(40\text{ N}\)[span_23](start_span)[span_23](end_span). If the frictional force experienced by the block is \(12\text{ N}\), calculate the magnitude of the acceleration produced[span_24](start_span)[span_24](end_span).</p>
+        <h4><span>Worked Example 2.1</span> <span class="badge">Net Force & Friction</span></h4>
+        <p>A block of wood of mass \(5\text{ kg}\) is pulled on a horizontal platform by a force of \(40\text{ N}\). If the frictional force \(F\) experienced by the block is \(12\text{ N}\), calculate the magnitude of the acceleration of the block.</p>
         <div class="working-steps">
-          $$\text{Mass of block } m = 5\text{ kg}$$
-          $$\text{Applied Force } P = 40\text{ N}$$
-          $$\text{Opposing Frictional Force } F_f = 12\text{ N}$$
-          $$\text{Resultant Unbalanced Force } F_r = P - F_f \text{[span_25](start_span)[span_25](end_span)}$$
-          $$F_r = 40 - 12 = 28\text{ N}$$
-          $$\text{From } F_r = m \cdot a \text{[span_26](start_span)[span_26](end_span)}:$$
-          $$a = \frac{F_r}{m} = \frac{28}{5} = 5.6\text{ m s}^{-2} \text{[span_27](start_span)[span_27](end_span)}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Find the resultant (net) force \(F_r\)</span>
+            \[F_r = P - F\]
+            \[F_r = 40\text{ N} - 12\text{ N} = 28\text{ N}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Apply Newton's Second Law (\(F_r = ma\))</span>
+            \[a = \frac{F_r}{m}\]
+            \[a = \frac{28}{5} = 5.6\text{ m s}^{-2}\]
+          </div>
         </div>
       </div>
 
       <div class="worked-example">
-        <h4><span>Worked Example 2.2</span> <span class="badge">Impulse Vectoring</span></h4>
-        <p>A \(0.2\text{ kg}\) tennis ball moving horizontally at \(30\text{ m s}^{-1}\) is struck by a racket, returning along its initial path at \(40\text{ m s}^{-1}\). If the impact lasted for \(0.005\text{ s}\), calculate: (i) the impulse, (ii) the average contact force.</p>
+        <h4><span>Worked Example 2.2</span> <span class="badge">Impulse & Rebound</span></h4>
+        <p>A \(0.2\text{ kg}\) ball moving horizontally at \(30\text{ m s}^{-1}\) is hit back in the opposite direction at \(40\text{ m s}^{-1}\). If the contact time is \(0.005\text{ s}\), find: (i) the impulse, (ii) the average force exerted.</p>
         <div class="working-steps">
-          $$\text{Let initial direction be positive: } u = +30\text{ m s}^{-1}$$
-          $$\text{Reversed final velocity: } v = -40\text{ m s}^{-1}$$
-          $$\text{(i) Impulse } I = m(v - u)$$
-          $$I = 0.2 \times \left(-40 - 30\right) = 0.2 \times (-70) = -14\text{ N s}$$
-          $$\text{Magnitude of Impulse } = 14\text{ N s}$$
-          $$\text{(ii) Average Force } F = \frac{I}{\Delta t} = \frac{-14}{0.005} = -2800\text{ N}$$
-          $$\text{Magnitude of Force } = 2800\text{ N}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Assign signs to directions (initial direction = positive)</span>
+            \[u = +30\text{ m s}^{-1}, \quad v = -40\text{ m s}^{-1}, \quad m = 0.2\text{ kg}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Calculate Impulse \(I\)</span>
+            \[I = m(v - u) = 0.2(-40 - 30)\]
+            \[I = 0.2 \times (-70) = -14\text{ N s} \quad (\text{Magnitude } = 14\text{ N s})\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 3: Calculate Average Force \(F\)</span>
+            \[F = \frac{I}{t} = \frac{14}{0.005} = 2800\text{ N}\]
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Concept 3 -->
+    <!-- SECTION 3 -->
     <div class="concept-card">
-      <h2>3. Apparent Weight in a Lift System & Inertial Mass</h2>
-      <p>When a person of true mass \(m\) stands on a weighing scale inside a lift (elevator), the scale reads the normal reaction \(R\) exerted on their feet[span_28](start_span)[span_28](end_span).</p>
+      <h2>3. Weight of a Body in a Lift (Elevator) & Connected Pulleys</h2>
+      <p>When a person of mass \(m\) stands on a spring scale inside a lift, the scale measures the upward normal reaction \(R\) of the floor on the person:</p>
 
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Motion State of Lift</th>
-            <th>Governing Equation</th>
-            <th>Apparent Weight (\(R\))</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Stationary or Uniform Velocity (\(a = 0\))</td>
-            <td>\(R - mg = 0\)</td>
-            <td>\(R = mg\) (True Weight)</td>
-          </tr>
-          <tr>
-            <td>Accelerating Upwards with \(a\)</td>
-            <td>\(R - mg = ma\)</td>
-            <td>\(R = m(g + a)\) (Heavier)[span_29](start_span)[span_29](end_span)</td>
-          </tr>
-          <tr>
-            <td>Accelerating Downwards with \(a\)</td>
-            <td>\(mg - R = ma\)</td>
-            <td>\(R = m(g - a)\) (Lighter)[span_30](start_span)[span_30](end_span)</td>
-          </tr>
-          <tr>
-            <td>Free Fall (Cable Snaps, \(a = g\))</td>
-            <td>\(mg - R = mg\)</td>
-            <td>\(R = 0\) (Weightlessness)[span_31](start_span)[span_31](end_span)</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Lift Motion</th>
+              <th>Equation of Motion</th>
+              <th>Scale Reading (\(R\))</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>At rest or uniform speed (\(a = 0\))</td>
+              <td>\(R - mg = 0\)</td>
+              <td>\(R = mg\) (True weight)</td>
+            </tr>
+            <tr>
+              <td>Accelerating upwards (\(a\))</td>
+              <td>\(R - mg = ma\)</td>
+              <td>\(R = m(g + a)\) (Feels heavier)</td>
+            </tr>
+            <tr>
+              <td>Accelerating downwards (\(a\))</td>
+              <td>\(mg - R = ma\)</td>
+              <td>\(R = m(g - a)\) (Feels lighter)</td>
+            </tr>
+            <tr>
+              <td>Free fall (Cable snaps, \(a = g\))</td>
+              <td>\(mg - R = mg\)</td>
+              <td>\(R = 0\) (Weightlessness)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="diagram-box">
+        <svg viewBox="0 0 420 190">
+          <!-- Table -->
+          <line x1="20" y1="80" x2="310" y2="80" stroke="#94a3b8" stroke-width="3"/>
+          <line x1="310" y1="80" x2="310" y2="180" stroke="#94a3b8" stroke-width="3"/>
+          <!-- Pulley -->
+          <circle cx="322" cy="68" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+          <line x1="310" y1="80" x2="322" y2="68" stroke="#94a3b8" stroke-width="2"/>
+          <!-- Block X -->
+          <rect x="110" y="40" width="75" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="4"/>
+          <text x="147" y="64" fill="#f8fafc" font-size="12" text-anchor="middle" font-weight="bold">X (5 kg)</text>
+          <!-- String -->
+          <line x1="185" y1="54" x2="322" y2="54" stroke="#f8fafc" stroke-width="1.8"/>
+          <line x1="336" y1="68" x2="336" y2="125" stroke="#f8fafc" stroke-width="1.8"/>
+          <!-- Block Y -->
+          <rect x="306" y="125" width="60" height="40" fill="#1e293b" stroke="#f59e0b" stroke-width="2" rx="4"/>
+          <text x="336" y="149" fill="#f8fafc" font-size="11" text-anchor="middle" font-weight="bold">Y (7.5 kg)</text>
+          <!-- Friction arrow -->
+          <line x1="110" y1="74" x2="45" y2="74" stroke="#ef4444" stroke-width="2"/>
+          <polygon points="48,70 38,74 48,78" fill="#ef4444"/>
+          <text x="72" y="65" fill="#ef4444" font-size="11" text-anchor="middle">Friction</text>
+          <!-- Tension arrows -->
+          <text x="255" y="47" fill="#38bdf8" font-size="11" text-anchor="middle">Tension (T)</text>
+        </svg>
+        <div class="diagram-caption">Diagram 3.1: Connected bodies X and Y over a smooth frictionless pulley.</div>
+      </div>
 
       <div class="worked-example">
-        <h4><span>Worked Example 3.1</span> <span class="badge">Elevator Mechanics</span></h4>
-        <p>An engineer of mass \(75\text{ kg}\) stands on a compression balance inside an elevator cabin. Taking \(g = 10\text{ m s}^{-2}\), calculate the balance reading when the cabin accelerates: (i) upwards at \(2.5\text{ m s}^{-2}\), (ii) downwards at \(3.0\text{ m s}^{-2}\)[span_32](start_span)[span_32](end_span).</p>
+        <h4><span>Worked Example 3.1</span> <span class="badge">Apparent Weight in Lift</span></h4>
+        <p>A man of mass \(75\text{ kg}\) stands on a spring scale inside a lift. Taking \(g = 10\text{ m s}^{-2}\), find the scale reading when the lift accelerates: (i) upwards at \(2.5\text{ m s}^{-2}\), (ii) downwards at \(3.0\text{ m s}^{-2}\).</p>
         <div class="working-steps">
-          $$\text{(i) Upward Acceleration:}$$
-          $$R = m(g + a) = 75 \times (10 + 2.5) = 75 \times 12.5 = 937.5\text{ N} \text{[span_33](start_span)[span_33](end_span)}$$
-          $$\text{(ii) Downward Acceleration:}$$
-          $$R = m(g - a) = 75 \times (10 - 3.0) = 75 \times 7.0 = 525.0\text{ N} \text{[span_34](start_span)[span_34](end_span)}$$
+          <div class="step-line">
+            <span class="step-label">(i) Upward acceleration (\(a = 2.5\text{ m s}^{-2}\))</span>
+            \[R = m(g + a) = 75(10 + 2.5)\]
+            \[R = 75 \times 12.5 = 937.5\text{ N}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">(ii) Downward acceleration (\(a = 3.0\text{ m s}^{-2}\))</span>
+            \[R = m(g - a) = 75(10 - 3.0)\]
+            \[R = 75 \times 7.0 = 525.0\text{ N}\]
+          </div>
+        </div>
+      </div>
+
+      <div class="worked-example">
+        <h4><span>Worked Example 3.2</span> <span class="badge">Connected Pulley System</span></h4>
+        <p>Two bodies \(X\) and \(Y\) of masses \(5.0\text{ kg}\) and \(7.5\text{ kg}\) are connected by a light inextensible string as shown in Diagram 3.1. If \(X\) is placed on a rough surface of coefficient of friction \(0.5\) and \(g = 10\text{ m s}^{-2}\), calculate the magnitude of the: (i) normal reaction on \(X\), (ii) frictional force between \(X\) and the surface, (iii) static tension in the string.</p>
+        <div class="working-steps">
+          <div class="step-line">
+            <span class="step-label">(i) Normal reaction \(R_x\) on body \(X\)</span>
+            \[R_x = W_x = m_x g = 5.0 \times 10 = 50\text{ N}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">(ii) Frictional force \(F\) opposing motion</span>
+            \[F = \mu R_x = 0.5 \times 50 = 25\text{ N}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">(iii) Tension \(T\) in the string</span>
+            \[T = W_y = m_y g = 7.5 \times 10 = 75\text{ N}\]
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Concept 4 -->
+    <!-- SECTION 4 -->
     <div class="concept-card">
-      <h2>4. Newton's Third Law, Momentum Conservation & Collisions</h2>
+      <h2>4. Newton's Third Law & Conservation of Linear Momentum</h2>
       <div class="callout">
-        <strong>Newton's Third Law of Motion:</strong> To every action, there is an equal and opposite reaction[span_35](start_span)[span_35](end_span)[span_36](start_span)[span_36](end_span).
+        <strong>Newton's Third Law:</strong> Action and reaction are equal in magnitude and opposite in direction.
       </div>
-      <p><strong>Principle of Conservation of Linear Momentum:</strong> In an isolated system of colliding bodies, the total momentum before impact is strictly equal to the total momentum after impact, provided no external forces act[span_37](start_span)[span_37](end_span).</p>
-      
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Collision Type</th>
-            <th>Momentum</th>
-            <th>Kinetic Energy</th>
-            <th>Post-Impact State</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Elastic</strong>[span_38](start_span)[span_38](end_span)[span_39](start_span)[span_39](end_span)</td>
-            <td>Conserved</td>
-            <td>Conserved</td>
-            <td>Bodies rebound independently[span_40](start_span)[span_40](end_span)</td>
-          </tr>
-          <tr>
-            <td><strong>Inelastic</strong>[span_41](start_span)[span_41](end_span)</td>
-            <td>Conserved</td>
-            <td>Loss (converted to heat/sound)[span_42](start_span)[span_42](end_span)</td>
-            <td>Bodies coalesce / move together[span_43](start_span)[span_43](end_span)</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="callout amber">
+        <strong>Principle of Conservation of Linear Momentum:</strong> In any closed or isolated system of colliding bodies, the total linear momentum before collision is equal to the total linear momentum after collision, provided no external force acts on the system.
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Elastic Collision</th>
+              <th>Inelastic Collision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bodies separate and bounce off after impact.</td>
+              <td>Bodies stick together and move with a common velocity \(v\).</td>
+            </tr>
+            <tr>
+              <td>Both linear momentum and kinetic energy are conserved.</td>
+              <td>Momentum is conserved, but kinetic energy decreases (converted to heat and sound).</td>
+            </tr>
+            <tr>
+              <td>\(m_1 u_1 + m_2 u_2 = m_1 v_1 + m_2 v_2\)</td>
+              <td>\(m_1 u_1 + m_2 u_2 = (m_1 + m_2)v\)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="worked-example">
-        <h4><span>Worked Example 4.1</span> <span class="badge">Inelastic Recoil</span></h4>
-        <p>A lead bullet of mass \(20\text{ g}\) is discharged horizontally at \(400\text{ m s}^{-1}\) into a suspended ballistic timber block of mass \(1.98\text{ kg}\). If the bullet embeds itself into the block, determine their combined speed immediately after impact.</p>
+        <h4><span>Worked Example 4.1</span> <span class="badge">Inelastic Collision</span></h4>
+        <p>A bullet of mass \(20\text{ g}\) moving horizontally at \(400\text{ m s}^{-1}\) strikes a stationary wooden block of mass \(1.98\text{ kg}\) and embeds itself inside it. Find their common velocity immediately after impact.</p>
         <div class="working-steps">
-          $$\text{Bullet Mass } m_1 = \frac{20}{1000}\text{ kg} = 0.02\text{ kg}, \quad u_1 = 400\text{ m s}^{-1}$$
-          $$\text{Block Mass } m_2 = 1.98\text{ kg}, \quad u_2 = 0\text{ m s}^{-1}$$
-          $$\text{Momentum before Impact } = m_1 u_1 + m_2 u_2$$
-          $$= (0.02 \times 400) + (1.98 \times 0) = 8.0\text{ kg m s}^{-1}$$
-          $$\text{Momentum after Impact } = (m_1 + m_2)v = (0.02 + 1.98)v = 2.0 \cdot v$$
-          $$\text{By Momentum Conservation:}$$
-          $$2.0 \cdot v = 8.0 \implies v = \frac{8.0}{2.0} = 4.0\text{ m s}^{-1}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Convert all masses to kilograms</span>
+            \[m_1 = \frac{20}{1000} = 0.02\text{ kg}, \quad u_1 = 400\text{ m s}^{-1}\]
+            \[m_2 = 1.98\text{ kg}, \quad u_2 = 0\text{ m s}^{-1}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Apply Conservation of Momentum</span>
+            \[m_1 u_1 + m_2 u_2 = (m_1 + m_2)v\]
+            \[(0.02 \times 400) + (1.98 \times 0) = (0.02 + 1.98)v\]
+            \[8.0 = 2.0v \implies v = \frac{8.0}{2.0} = 4.0\text{ m s}^{-1}\]
+          </div>
         </div>
       </div>
 
       <div class="worked-example">
-        <h4><span>Worked Example 4.2</span> <span class="badge">Pulley Assembly Equilibrium</span></h4>
-        <p>Two bodies \(X\) and \(Y\) of masses \(5.0\text{ kg}\) and \(7.5\text{ kg}\) are coupled by a light inextensible cord passing over a frictionless pulley[span_44](start_span)[span_44](end_span). Body \(X\) sits on a rough bench with \(\mu = 0.5\)[span_45](start_span)[span_45](end_span). Taking \(g = 10\text{ m s}^{-2}\), calculate the static tension in the string[span_46](start_span)[span_46](end_span).</p>
+        <h4><span>Worked Example 4.2</span> <span class="badge">Rocket Thrust</span></h4>
+        <p>A rocket expels hot exhaust gases at a rate of \(40\text{ kg s}^{-1}\) with a downward velocity of \(500\text{ m s}^{-1}\). Calculate the upward thrust force on the rocket.</p>
         <div class="working-steps">
-          $$\text{Weight of hanging mass } Y: W_y = m_y \cdot g = 7.5 \times 10 = 75\text{ N} \text{[span_47](start_span)[span_47](end_span)}$$
-          $$\text{Limiting friction on } X: F_f = \mu \cdot m_x \cdot g = 0.5 \times (5.0 \times 10) = 25\text{ N} \text{[span_48](start_span)[span_48](end_span)}$$
-          $$\text{For the stationary hanging load, tension balances weight: } T = W_y = 75\text{ N} \text{[span_49](start_span)[span_49](end_span)}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Apply the mass-flow thrust formula</span>
+            \[F = v \times \frac{\Delta m}{\Delta t}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Substitute given values</span>
+            \[F = 500 \times 40 = 20000\text{ N}\]
+          </div>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- ======================== PART 2 ======================== -->
+  <!-- ======================== PART 2: PRACTICE & CBT ======================== -->
   <div id="part2" class="tab-content">
 
     <div class="concept-card">
-      <h2>Guided Practice Problems</h2>
-      <p>Work out your steps on rough paper before revealing the solutions.</p>
+      <h2>Guided Practice Questions</h2>
+      <p>Type your numerical answer into the box first to unlock the step-by-step working.</p>
 
-      <!-- Practice 1 -->
+      <!-- Drill 1 -->
       <div class="drill-card">
-        <div class="drill-header">Practice Drill 1: Vehicle Traction Against Road Friction</div>
-        <p>A saloon car of mass \(800\text{ kg}\) experiences an opposing road friction of \(200\text{ N}\)[span_50](start_span)[span_50](end_span). If the vehicle accelerates forward along a level asphalt road at \(2\text{ m s}^{-2}\), determine the driving force generated by the engine[span_51](start_span)[span_51](end_span).</p>
-        <button class="reveal-btn" onclick="toggleSolution('sol-1')">Reveal Detailed Working</button>
+        <div class="drill-header">Practice Question 1</div>
+        <p>A moving car of mass \(800\text{ kg}\) experiences a frictional force of \(200\text{ N}\). If it accelerates at \(2\text{ m s}^{-2}\), calculate the magnitude of the driving force applied by the engine (in \(\text{N}\)).</p>
+        <div class="drill-input-row">
+          <input type="text" id="ans-1" class="drill-input" placeholder="Enter your answer (e.g. 1800)">
+          <button class="reveal-btn" onclick="unlockDrill(1)">Check & View Solution</button>
+        </div>
         <div id="sol-1" class="solution-tray">
-          $$F_{net} = m \cdot a = 800 \times 2 = 1600\text{ N} \text{[span_52](start_span)[span_52](end_span)}$$
-          $$\text{Applied Engine Force } P = F_{net} + F_{friction} = 1600 + 200 = 1800\text{ N} \text{[span_53](start_span)[span_53](end_span)}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Calculate net resultant force \(F_r\)</span>
+            \[F_r = ma = 800 \times 2 = 1600\text{ N}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Calculate applied engine force \(P\)</span>
+            \[P = F_r + F = 1600 + 200 = 1800\text{ N}\]
+          </div>
         </div>
       </div>
 
-      <!-- Practice 2 -->
+      <!-- Drill 2 -->
       <div class="drill-card">
-        <div class="drill-header">Practice Drill 2: Rifle Recoil Action</div>
-        <p>A target rifle of mass \(4.5\text{ kg}\) discharges a \(0.03\text{ kg}\) cartridge at a muzzle velocity of \(600\text{ m s}^{-1}\). Compute the initial recoil velocity imparted to the rifle stock.</p>
-        <button class="reveal-btn" onclick="toggleSolution('sol-2')">Reveal Detailed Working</button>
+        <div class="drill-header">Practice Question 2</div>
+        <p>A gun of mass \(4.5\text{ kg}\) fires a bullet of mass \(30\text{ g}\) at a muzzle velocity of \(600\text{ m s}^{-1}\). Calculate the recoil speed of the gun (in \(\text{m s}^{-1}\)).</p>
+        <div class="drill-input-row">
+          <input type="text" id="ans-2" class="drill-input" placeholder="Enter your answer (e.g. 4)">
+          <button class="reveal-btn" onclick="unlockDrill(2)">Check & View Solution</button>
+        </div>
         <div id="sol-2" class="solution-tray">
-          $$\text{Total initial momentum of system at rest } = 0$$
-          $$m_{rifle} \cdot v_{rifle} + m_{bullet} \cdot v_{bullet} = 0$$
-          $$(4.5) \cdot v_{rifle} + (0.03 \times 600) = 0$$
-          $$4.5 \cdot v_{rifle} + 18 = 0 \implies v_{rifle} = -\frac{18}{4.5} = -4.0\text{ m s}^{-1}$$
-          $$\text{Recoil velocity is } 4.0\text{ m s}^{-1} \text{ in the backward direction.}$$
+          <div class="step-line">
+            <span class="step-label">Step 1: Momentum before firing = Momentum after firing</span>
+            \[m_g v_g = m_b v_b\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Solve for recoil speed \(v_g\)</span>
+            \[4.5 \times v_g = 0.03 \times 600\]
+            \[4.5 v_g = 18 \implies v_g = \frac{18}{4.5} = 4.0\text{ m s}^{-1}\]
+          </div>
+        </div>
+      </div>
+
+      <!-- Drill 3 -->
+      <div class="drill-card">
+        <div class="drill-header">Practice Question 3</div>
+        <p>A body of mass \(25\text{ kg}\) moving at \(3\text{ m s}^{-1}\) on a rough horizontal floor is brought to rest after sliding through \(2.5\text{ m}\). Taking \(g = 10\text{ m s}^{-2}\), calculate the coefficient of sliding friction \(\mu\).</p>
+        <div class="drill-input-row">
+          <input type="text" id="ans-3" class="drill-input" placeholder="Enter your answer (e.g. 0.18)">
+          <button class="reveal-btn" onclick="unlockDrill(3)">Check & View Solution</button>
+        </div>
+        <div id="sol-3" class="solution-tray">
+          <div class="step-line">
+            <span class="step-label">Step 1: Find retardation \(a\) from \(v^2 = u^2 - 2as\)</span>
+            \[0 = 3^2 - 2(a)(2.5) \implies 5a = 9 \implies a = \frac{9}{5} = 1.8\text{ m s}^{-2}\]
+          </div>
+          <div class="step-line">
+            <span class="step-label">Step 2: Find frictional force \(F\) and coefficient \(\mu\)</span>
+            \[F = ma = 25 \times 1.8 = 45\text{ N}\]
+            \[R = mg = 25 \times 10 = 250\text{ N}\]
+            \[\mu = \frac{F}{R} = \frac{45}{250} = 0.18\]
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- CBT Section -->
+    <!-- TIMED QUIZ -->
     <div class="concept-card">
       <div class="timer-bar">
-        <div><strong>Timed Examination</strong> (90s Per MCQ)</div>
-        <div class="time-val" id="timer-display">15:00</div>
+        <div><strong>Timed Quiz</strong> (10 Objective + 1 Theory)</div>
+        <div class="time-val" id="timer-display">20:00</div>
       </div>
 
-      <div style="margin-bottom: 20px;">
-        <label style="color:var(--cyan); font-weight:bold;">Student Full Name:</label>
-        <input type="text" id="student-name" placeholder="Type your full name here..." style="width:100%; padding:10px; border-radius:6px; border:1px solid var(--border); background:var(--card-alt); color:#fff; margin-top:6px;">
+      <div style="margin-bottom: 18px;">
+        <label style="color:var(--cyan); font-weight:600; font-size:0.9rem;">Student Full Name:</label>
+        <input type="text" id="student-name" placeholder="Enter your full name..." style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border); background:var(--card-alt); color:#fff; margin-top:6px; font-size:0.95rem;">
       </div>
 
-      <!-- Questions -->
       <div class="quiz-q">
-        <h4>1. Which of the following physical dimensions correctly defines Impulse?[span_54](start_span)[span_54](end_span)</h4>
+        <h4>1. Which of the following dimensions represents Impulse?</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q1" value="A"> A. \(M L T^{-2}\)[span_55](start_span)[span_55](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q1" value="B"> B. \(M L T^{-1}\)[span_56](start_span)[span_56](end_span)</label>
+          <label class="option-lbl"><input type="radio" name="q1" value="A"> A. \(M L T^{-2}\)</label>
+          <label class="option-lbl"><input type="radio" name="q1" value="B"> B. \(M L T^{-1}\)</label>
           <label class="option-lbl"><input type="radio" name="q1" value="C"> C. \(M L^{2} T^{-2}\)</label>
           <label class="option-lbl"><input type="radio" name="q1" value="D"> D. \(M L^{-1} T^{-2}\)</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>2. A moving truck experiences no net external force. Which characteristic remains strictly invariant?</h4>
+        <h4>2. The reluctance of a body to change its state of rest or uniform motion is called:</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q2" value="A"> A. Its acceleration</label>
-          <label class="option-lbl"><input type="radio" name="q2" value="B"> B. Its linear momentum</label>
-          <label class="option-lbl"><input type="radio" name="q2" value="C"> C. Its displacement</label>
-          <label class="option-lbl"><input type="radio" name="q2" value="D"> D. Its gravitational potential energy</label>
+          <label class="option-lbl"><input type="radio" name="q2" value="A"> A. Impulse</label>
+          <label class="option-lbl"><input type="radio" name="q2" value="B"> B. Inertia</label>
+          <label class="option-lbl"><input type="radio" name="q2" value="C"> C. Momentum</label>
+          <label class="option-lbl"><input type="radio" name="q2" value="D"> D. Friction</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>3. A crane lifts an \(80\text{ kg}\) load vertically upwards at a steady constant speed of \(4\text{ m s}^{-1}\). Taking \(g = 10\text{ m s}^{-2}\), the tension in the hoisting cable is:</h4>
+        <h4>3. A force of \(20\text{ N}\) acts on a body of mass \(4\text{ kg}\) initially at rest for \(3\text{ s}\). What is the final velocity of the body?</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q3" value="A"> A. \(1120\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q3" value="B"> B. \(800\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q3" value="C"> C. \(480\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q3" value="D"> D. \(320\text{ N}\)</label>
+          <label class="option-lbl"><input type="radio" name="q3" value="A"> A. \(5\text{ m s}^{-1}\)</label>
+          <label class="option-lbl"><input type="radio" name="q3" value="B"> B. \(12\text{ m s}^{-1}\)</label>
+          <label class="option-lbl"><input type="radio" name="q3" value="C"> C. \(15\text{ m s}^{-1}\)</label>
+          <label class="option-lbl"><input type="radio" name="q3" value="D"> D. \(60\text{ m s}^{-1}\)</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>4. An astronaut of mass \(70\text{ kg}\) stands inside an elevator cabin descending with a downward acceleration of \(10\text{ m s}^{-2}\) (\(g = 10\text{ m s}^{-2}\)). The reading on the spring balance is:[span_57](start_span)[span_57](end_span)</h4>
+        <h4>4. A man of mass \(60\text{ kg}\) stands in a lift descending with a uniform velocity of \(4\text{ m s}^{-1}\). Taking \(g = 10\text{ m s}^{-2}\), calculate the reaction of the floor on the man.</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q4" value="A"> A. \(1400\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q4" value="B"> B. \(700\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q4" value="C"> C. \(350\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q4" value="D"> D. \(0\text{ N}\)[span_58](start_span)[span_58](end_span)</label>
+          <label class="option-lbl"><input type="radio" name="q4" value="A"> A. \(840\text{ N}\)</label>
+          <label class="option-lbl"><input type="radio" name="q4" value="B"> B. \(600\text{ N}\)</label>
+          <label class="option-lbl"><input type="radio" name="q4" value="C"> C. \(360\text{ N}\)</label>
+          <label class="option-lbl"><input type="radio" name="q4" value="D"> D. \(0\text{ N}\)</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>5. Two colliding spherical masses coalesce upon impact and proceed with a common velocity. Which statement is correct?[span_59](start_span)[span_59](end_span)</h4>
+        <h4>5. In an inelastic collision between two bodies, which of the following quantities is conserved?</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q5" value="A"> A. Both linear momentum and kinetic energy are conserved[span_60](start_span)[span_60](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q5" value="B"> B. Linear momentum is conserved, but kinetic energy is lost[span_61](start_span)[span_61](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q5" value="C"> C. Kinetic energy is conserved, but momentum is lost</label>
-          <label class="option-lbl"><input type="radio" name="q5" value="D"> D. Neither momentum nor kinetic energy is conserved</label>
+          <label class="option-lbl"><input type="radio" name="q5" value="A"> A. Kinetic energy only</label>
+          <label class="option-lbl"><input type="radio" name="q5" value="B"> B. Linear momentum only</label>
+          <label class="option-lbl"><input type="radio" name="q5" value="C"> C. Both momentum and kinetic energy</label>
+          <label class="option-lbl"><input type="radio" name="q5" value="D"> D. Potential energy only</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>6. A body of mass \(25\text{ kg}\) sliding at \(3\text{ m s}^{-1}\) on a floor is stopped by friction over \(2.5\text{ m}\)[span_62](start_span)[span_62](end_span). Taking \(g = 10\text{ m s}^{-2}\), the coefficient of friction is:[span_63](start_span)[span_63](end_span)</h4>
+        <h4>6. A block is acted upon by a forward force of \(10\text{ N}\) and an opposing frictional force of \(1\text{ N}\). If it accelerates at \(1.5\text{ m s}^{-2}\), what is the mass of the block?</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q6" value="A"> A. \(0.09\)[span_64](start_span)[span_64](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q6" value="B"> B. \(0.18\)[span_65](start_span)[span_65](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q6" value="C"> C. \(0.36\)[span_66](start_span)[span_66](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q6" value="D"> D. \(0.54\)[span_67](start_span)[span_67](end_span)</label>
+          <label class="option-lbl"><input type="radio" name="q6" value="A"> A. \(6\text{ kg}\)</label>
+          <label class="option-lbl"><input type="radio" name="q6" value="B"> B. \(9\text{ kg}\)</label>
+          <label class="option-lbl"><input type="radio" name="q6" value="C"> C. \(10\text{ kg}\)</label>
+          <label class="option-lbl"><input type="radio" name="q6" value="D"> D. \(15\text{ kg}\)</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>7. Why does a goalkeeper pull his hands backward while catching a fast football?</h4>
+        <h4>7. Why does a fielder draw his hands backward when catching a fast cricket ball?</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q7" value="A"> A. To decrease the duration of contact</label>
-          <label class="option-lbl"><input type="radio" name="q7" value="B"> B. To increase the change in momentum</label>
-          <label class="option-lbl"><input type="radio" name="q7" value="C"> C. To increase the impact time, thereby reducing the impulsive force</label>
-          <label class="option-lbl"><input type="radio" name="q7" value="D"> D. To increase the reaction force on his palms</label>
+          <label class="option-lbl"><input type="radio" name="q7" value="A"> A. To reduce the time of contact</label>
+          <label class="option-lbl"><input type="radio" name="q7" value="B"> B. To increase the time of impact and reduce the force</label>
+          <label class="option-lbl"><input type="radio" name="q7" value="C"> C. To increase the impulse of the ball</label>
+          <label class="option-lbl"><input type="radio" name="q7" value="D"> D. To make the collision elastic</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>8. A rocket expels burning gases at a rate of \(50\text{ kg s}^{-1}\) with an exhaust velocity of \(400\text{ m s}^{-1}\). The thrust developed is:[span_68](start_span)[span_68](end_span)</h4>
+        <h4>8. Jet engines and rockets operate on the principle of:</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q8" value="A"> A. \(8\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q8" value="B"> B. \(200\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q8" value="C"> C. \(20000\text{ N}\)</label>
-          <label class="option-lbl"><input type="radio" name="q8" value="D"> D. \(80000\text{ N}\)</label>
+          <label class="option-lbl"><input type="radio" name="q8" value="A"> A. Conservation of energy</label>
+          <label class="option-lbl"><input type="radio" name="q8" value="B"> B. Conservation of linear momentum</label>
+          <label class="option-lbl"><input type="radio" name="q8" value="C"> C. Moments of a couple</label>
+          <label class="option-lbl"><input type="radio" name="q8" value="D"> D. Archimedes' principle</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>9. The area enclosed beneath a Force against time (\(F\text{--}t\)) graph represents:[span_69](start_span)[span_69](end_span)</h4>
+        <h4>9. The area under a Force-Time (\(F\text{--}t\)) graph represents:</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q9" value="A"> A. Work done[span_70](start_span)[span_70](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q9" value="B"> B. Power developed</label>
-          <label class="option-lbl"><input type="radio" name="q9" value="C"> C. Impulse[span_71](start_span)[span_71](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q9" value="D"> D. Acceleration[span_72](start_span)[span_72](end_span)</label>
+          <label class="option-lbl"><input type="radio" name="q9" value="A"> A. Mechanical work done</label>
+          <label class="option-lbl"><input type="radio" name="q9" value="B"> B. Power dissipated</label>
+          <label class="option-lbl"><input type="radio" name="q9" value="C"> C. Impulse (Change in momentum)</label>
+          <label class="option-lbl"><input type="radio" name="q9" value="D"> D. Kinetic energy</label>
         </div>
       </div>
 
       <div class="quiz-q">
-        <h4>10. Which instrument is designed specifically to measure inertial mass rather than weight?[span_73](start_span)[span_73](end_span)[span_74](start_span)[span_74](end_span)</h4>
+        <h4>10. A trolley of mass \(4\text{ kg}\) moving at \(5\text{ m s}^{-1}\) collides with a stationary trolley of mass \(6\text{ kg}\). If they stick together, what is their common velocity?</h4>
         <div class="option-row">
-          <label class="option-lbl"><input type="radio" name="q10" value="A"> A. Spring balance[span_75](start_span)[span_75](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q10" value="B"> B. Inertia balance / Chemical beam balance[span_76](start_span)[span_76](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q10" value="C"> C. Hydrometer[span_77](start_span)[span_77](end_span)</label>
-          <label class="option-lbl"><input type="radio" name="q10" value="D"> D. Manometer[span_78](start_span)[span_78](end_span)</label>
+          <label class="option-lbl"><input type="radio" name="q10" value="A"> A. \(1.5\text{ m s}^{-1}\)</label>
+          <label class="option-lbl"><input type="radio" name="q10" value="B"> B. \(2.0\text{ m s}^{-1}\)</label>
+          <label class="option-lbl"><input type="radio" name="q10" value="C"> C. \(2.5\text{ m s}^{-1}\)</label>
+          <label class="option-lbl"><input type="radio" name="q10" value="D"> D. \(3.0\text{ m s}^{-1}\)</label>
         </div>
       </div>
 
-      <button class="btn-submit" onclick="submitAssessment()">Submit Assessment & Log Results</button>
+      <div class="quiz-q">
+        <h4>11. [Theory - 5 Mins] A body of mass \(5.0\text{ kg}\) is pulled along a horizontal bench by a force \(F\) against a frictional resistance of \(5\text{ N}\). If it accelerates at \(2.0\text{ m s}^{-2}\) (\(g = 10\text{ m s}^{-2}\)), calculate: (i) the net force, (ii) the applied force \(F\), (iii) the coefficient of kinetic friction.</h4>
+        <textarea id="theory-ans" rows="4" placeholder="Type your step-by-step working and final answers here..." style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:var(--card-bg); color:#fff; font-size:0.9rem;"></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="submitAssessment()">Submit Quiz & Log Score</button>
       <div id="cbt-result" class="result-box"></div>
     </div>
 
@@ -473,16 +967,16 @@
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZsS4AC-38_2dOpr1CYc4ffKiln1jRPNMEBp-Wy89M0Ya8OthYd-GbFCicrJ_xN6M/exec";
-    
+
     const ANSWERS = {
       q1: "B",
       q2: "B",
-      q3: "B",
-      q4: "D",
+      q3: "C",
+      q4: "B",
       q5: "B",
-      q6: "B",
-      q7: "C",
-      q8: "C",
+      q6: "A",
+      q7: "B",
+      q8: "B",
       q9: "C",
       q10: "B"
     };
@@ -499,9 +993,15 @@
       }
     }
 
-    function toggleSolution(id) {
-      const el = document.getElementById(id);
-      el.style.display = (el.style.display === "block") ? "none" : "block";
+    function unlockDrill(num) {
+      const inputVal = document.getElementById('ans-' + num).value.trim();
+      if (!inputVal) {
+        alert("Please type your attempt in the box first before viewing the solution!");
+        return;
+      }
+      const tray = document.getElementById('sol-' + num);
+      tray.style.display = "block";
+      if (window.MathJax) MathJax.typesetPromise();
     }
 
     function updateSim() {
@@ -510,12 +1010,12 @@
       document.getElementById('val-force').innerText = F + " N";
       document.getElementById('val-mass').innerText = m + " kg";
       const a = (F / m).toFixed(2);
-      document.getElementById('sim-accel').innerHTML = `Acceleration: \\(a = \\frac{F}{m} = \\frac{${F}}{${m}} = ${a}\\text{ m s}^{-2}\\)`;
+      document.getElementById('sim-accel').innerHTML = `\\[a = \\frac{F_r}{m} = \\frac{${F}}{${m}} = ${a}\\text{ m s}^{-2}\\]`;
       if (window.MathJax) MathJax.typesetPromise();
     }
 
-    // CBT Countdown Timer (15 Minutes)
-    let totalSeconds = 15 * 60;
+    // 20-Minute Quiz Timer (15m Objective + 5m Theory)
+    let totalSeconds = 20 * 60;
     const timerDisplay = document.getElementById('timer-display');
     const timerInterval = setInterval(() => {
       const minutes = Math.floor(totalSeconds / 60);
@@ -541,39 +1041,39 @@
           score++;
           breakdown[key.toUpperCase()] = "Correct";
         } else {
-          const userVal = selected ? selected.value : "Unanswered";
-          breakdown[key.toUpperCase()] = `Wrong (Selected ${userVal}, Correct is ${ANSWERS[key]})`;
+          const userVal = selected ? selected.value : "Blank";
+          breakdown[key.toUpperCase()] = `Wrong (${userVal} vs ${ANSWERS[key]})`;
         }
       }
+
+      const theoryText = document.getElementById('theory-ans').value.trim();
+      breakdown["Q11_Theory"] = theoryText ? theoryText : "No theory response";
 
       const scoreStr = `${score} / ${total}`;
       const percentage = Math.round((score / total) * 100);
 
-      // Display results on screen
       const resBox = document.getElementById('cbt-result');
       resBox.style.display = "block";
-      resBox.innerHTML = `<h3>Assessment Concluded</h3>
-        <p style="font-size:1.15rem; margin-top:8px;">Score: <strong>${scoreStr} (${percentage}%)</strong></p>
-        <p style="color:var(--muted); font-size:0.85rem;">Transmission logged to portal gradebook.</p>`;
+      resBox.innerHTML = `<h3>Quiz Submitted!</h3>
+        <p style="font-size:1.15rem; margin-top:8px;">Objective Score: <strong>${scoreStr} (${percentage}%)</strong></p>
+        <p style="font-size:0.88rem; color:#cbd5e1; margin-top:6px;">Theory Expected Answers: (i) Net Force = 10 N, (ii) Applied Force F = 15 N, (iii) Coefficient = 0.1</p>`;
 
-      // Build payload matching Google Apps Script contract
       const payload = {
         Subject: "Physics",
         Class: "SSS 2",
-        Topic: "Newton's Laws of Motion, Momentum & Impulse",
+        Topic: "Week 5: Newton's Laws, Momentum & Impulse",
         Student: studentName,
         Score: scoreStr,
         Timestamp: new Date().toLocaleString(),
         ...breakdown
       };
 
-      // Background silent transmission
       fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
-      }).catch(err => console.log("Silent logging:", err));
+      }).catch(err => console.log("Logged:", err));
     }
   </script>
 </body>
