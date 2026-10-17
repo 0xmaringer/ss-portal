@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSS2 First Term STEM Portal</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px 16px; max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #334155; }
+    .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 10px; }
+    h1 { font-size: 1.75rem; margin-bottom: 8px; }
+    p.sub { color: var(--muted); font-size: 0.95rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid #334155; border-radius: 14px; padding: 20px; transition: transform 0.15s ease; }
+    .card h2 { font-size: 1.2rem; margin-bottom: 6px; color: var(--accent); }
+    .card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; line-height: 1.4; }
+    .status { font-size: 0.8rem; color: #cbd5e1; background: #0f172a; padding: 8px 12px; border-radius: 8px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="badge">SSS 2 • First Term</span>
+    <h1>STEM Learning Portal</h1>
+    <p class="sub">Interactive Lessons, Worked Examples, Practice Drills & CBT Exams</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2> Physics</h2>
+      <p>Mechanics, Vectors, Projectile Motion, Equilibrium of Forces & Simple Harmonic Motion.</p>
+      <span class="status">📂 First Term Modules Loading...</span>
+    </div>
+    <div class="card">
+      <h2> Mathematics</h2>
+      <p>Logarithms, Approximations, Sequences & Series, Quadratic Equations & Simultaneous Equations.</p>
+      <span class="status">📂 First Term Modules Loading...</span>
+    </div>
+    <div class="card">
+      <h2> Further Mathematics</h2>
+      <p>Roots of Quadratic Equations, Polynomials, Logical Reasoning, Trigonometry & Permutations.</p>
+      <span class="status">📂 First Term Modules Loading...</span>
+    </div>
+    <div class="card">
+      <h2> Chemistry</h2>
+      <p>Periodic Table, Chemical Reactions, Mass-Volume Relationships & Acid-Base Titration.</p>
+      <span class="status">📂 First Term Modules Loading...</span>
+    </div>
+  </div>
+</body>
+</html>
